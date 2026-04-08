@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="SalarySlip" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e0b8e62d-0b6d-49af-ba0f-b1e16fdf0c34">
+
+    <!-- Report Parameters -->
+    <parameter name="month" class="java.lang.String"/>
+    <parameter name="Employee ID" class="java.lang.String"/>
+    <parameter name="Days in month" class="java.lang.String"/>
+    <parameter name="Opening Leave Balance" class="java.lang.String"/>
+    <parameter name="Leaves Availed" class="java.lang.String"/>
+    <parameter name="Closing Leave Balance" class="java.lang.String"/>
+    <parameter name="Bank Name" class="java.lang.String"/>
+    <parameter name="Bank IFSC Code" class="java.lang.String"/>
+    <parameter name="Employee Name" class="java.lang.String"/>
+    <parameter name="Days of Pay" class="java.lang.String"/>
+    <parameter name="Eligible Leaves" class="java.lang.String"/>
+    <parameter name="Loss of Pay Days" class="java.lang.String"/>
+    <parameter name="Payable Days" class="java.lang.String"/>
+    <parameter name="Bank Account #" class="java.lang.String"/>
+    <parameter name="UAN" class="java.lang.String"/>
+
+    <parameter name="Payable Basic + DA" class="java.lang.String"/>
+    <parameter name="Payable HRA" class="java.lang.String"/>
+    <parameter name="Payable Medical Allowance" class="java.lang.String"/>
+    <parameter name="Payable Conveyance" class="java.lang.String"/>
+    <parameter name="Individual Performance Incentive" class="java.lang.String"/>
+    <parameter name="Company Performance Incentive" class="java.lang.String"/>
+    <parameter name="Other Arrears / Incentives" class="java.lang.String"/>
+    <parameter name="Bonus Accrued" class="java.lang.String"/>
+    <parameter name="Total Additions" class="java.lang.String"/>
+
+    <parameter name="Provident Fund (PF)" class="java.lang.String"/>
+    <parameter name="Professional Tax (PT)" class="java.lang.String"/>
+    <parameter name="Employees' State Insurance (ESI)" class="java.lang.String"/>
+    <parameter name="Loan EMI" class="java.lang.String"/>
+    <parameter name="Total Deductions" class="java.lang.String"/>
+
+    <parameter name="Payable Salary" class="java.lang.String"/>
+    <parameter name="Annual Bonus" class="java.lang.String"/>
+    <parameter name="Closing Loan Balance" class="java.lang.String"/>
+
+    <!-- Report Title -->
+    <title>
+        <band height="120">
+            <!-- Company Logo -->
+            <image hAlign="Center" vAlign="Middle">
+                <reportElement x="0" y="0" width="555" height="50" uuid="fc567db1-096d-49af-ba0f-b1e16fdf0c34"/>
+                <imageExpression><![CDATA["src/main/resources/download.png"]]></imageExpression>
+            </image>
+            
+            <!-- Main Title -->
+            <staticText>
+                <reportElement x="0" y="60" width="555" height="30" uuid="f2e7ef6f-cd12-4217-a06f-07e0c4f8dcf5"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="18" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Salary Slip]]></text>
+            </staticText>
+            
+            <!-- Subtitle with dynamic Month/Year -->
+            <textField isBlankWhenNull="true">
+                <reportElement x="0" y="90" width="555" height="20" uuid="a1b2c3d4-e5f6-4a5b-8c7d-9e0f1a2b3c4d"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="12" isBold="false"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Salary Slip for " + ($P{month} != null ? $P{month} : "")]]></textFieldExpression>
+            </textField>
+            
+            <line>
+                <reportElement x="0" y="115" width="555" height="1" uuid="8a6ae8e1-dccd-4dff-bdb0-ef3db3907ead"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+            </line>
+        </band>
+    </title>
+
+    <!-- Page Header: Employee Details Section -->
+    <pageHeader>
+        <band height="140">
+            <!-- Section Title -->
+            <staticText>
+                <reportElement x="0" y="5" width="555" height="20" uuid="ed-title-1"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle">
+                    <font size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Employee Details]]></text>
+            </staticText>
+
+            <!-- LEFT COLUMN -->
+            <staticText>
+                <reportElement x="0" y="30" width="130" height="15" uuid="ed-l1"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="10" isBold="true"/></textElement>
+                <text><![CDATA[Employee ID]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="130" y="30" width="140" height="15" uuid="ed-l1-v"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="10"/></textElement>
+                <textFieldExpression><![CDATA[$P{Employee ID}]]></textFieldExpression>
+            </textField>
+
+            <staticText>
+                <reportElement x="0" y="45" width="130" height="15" uuid="ed-l2"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+            
+                <textElement verticalAlignment="Middle"><font size="10" isBold="true"/></textElement>
+                <text><![CDATA[Days in month]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="130" y="45" width="140" height="15" uuid="ed-l2-v"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="10"/></textElement>
+                <textFieldExpression><![CDATA[$P{Days in month}]]></textFieldExpression>
+            </textField>
+
+            <staticText>
+                <reportElement x="0" y="60" width="130" height="15" uuid="ed-l3"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="10" isBold="true"/></textElement>
+                <text><![CDATA[Opening Leave Balance]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="130" y="60" width="140" height="15" uuid="ed-l3-v"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="10"/></textElement>
+                <textFieldExpression><![CDATA[$P{Opening Leave Balance}]]></textFieldExpression>
+            </textField>
+
+            <staticText>
+                <reportElement x="0" y="75" width="130" height="15" uuid="ed-l4"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="10" isBold="true"/></textElement>
+                <text><![CDATA[Leaves Availed]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="130" y="75" width="140" height="15" uuid="ed-l4-v"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="10"/></textElement>
+                <textFieldExpression><![CDATA[$P{Leaves Availed}]]></textFieldExpression>
+            </textField>
+
+            <staticText>
+                <reportElement x="0" y="90" width="130" height="15" uuid="ed-l5"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="10" isBold="true"/></textElement>
+                <text><![CDATA[Closing Leave Balance]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="130" y="90" width="140" height="15" uuid="ed-l5-v"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="10"/></textElement>
+                <textFieldExpression><![CDATA[$P{Closing Leave Balance}]]></textFieldExpression>
+            </textField>
+
+            <staticText>
+                <reportElement x="0" y="105" width="130" height="15" uuid="ed-l6"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="10" isBold="true"/></textElement>
+                <text><![CDATA[Bank Name]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="130" y="105" width="140" height="15" uuid="ed-l6-v"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="10"/></textElement>
+                <textFieldExpression><![CDATA[$P{Bank Name}]]></textFieldExpression>
+            </textField>
+
+            <staticText>
+                <reportElement x="0" y="120" width="130" height="15" uuid="ed-l7"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="10" isBold="true"/></textElement>
+                <text><![CDATA[Bank IFSC Code]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="130" y="120" width="140" height="15" uuid="ed-l7-v"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="10"/></textElement>
+                <textFieldExpression><![CDATA[$P{Bank IFSC Code}]]></textFieldExpression>
+            </textField>
+
+            <!-- RIGHT COLUMN -->
+            <staticText>
+                <reportElement x="280" y="30" width="130" height="15" uuid="ed-r1"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="10" isBold="true"/></textElement>
+                <text><![CDATA[Employee Name]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="410" y="30" width="145" height="15" uuid="ed-r1-v"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="10"/></textElement>
+                <textFieldExpression><![CDATA[$P{Employee Name}]]></textFieldExpression>
+            </textField>
+
+            <staticText>
+                <reportElement x="280" y="45" width="130" height="15" uuid="ed-r2"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="10" isBold="true"/></textElement>
+                <text><![CDATA[Days of Pay]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="410" y="45" width="145" height="15" uuid="ed-r2-v"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="10"/></textElement>
+                <textFieldExpression><![CDATA[$P{Days of Pay}]]></textFieldExpression>
+            </textField>
+
+            <staticText>
+                <reportElement x="280" y="60" width="130" height="15" uuid="ed-r3"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="10" isBold="true"/></textElement>
+                <text><![CDATA[Eligible Leaves]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="410" y="60" width="145" height="15" uuid="ed-r3-v"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="10"/></textElement>
+                <textFieldExpression><![CDATA[$P{Eligible Leaves}]]></textFieldExpression>
+            </textField>
+
+            <staticText>
+                <reportElement x="280" y="75" width="130" height="15" uuid="ed-r4"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="10" isBold="true"/></textElement>
+                <text><![CDATA[Loss of Pay Days]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="410" y="75" width="145" height="15" uuid="ed-r4-v"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="10"/></textElement>
+                <textFieldExpression><![CDATA[$P{Loss of Pay Days}]]></textFieldExpression>
+            </textField>
+
+            <staticText>
+                <reportElement x="280" y="90" width="130" height="15" uuid="ed-r5"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="10" isBold="true"/></textElement>
+                <text><![CDATA[Payable Days]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="410" y="90" width="145" height="15" uuid="ed-r5-v"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="10"/></textElement>
+                <textFieldExpression><![CDATA[$P{Payable Days}]]></textFieldExpression>
+            </textField>
+
+            <staticText>
+                <reportElement x="280" y="105" width="130" height="15" uuid="ed-r6"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="10" isBold="true"/></textElement>
+                <text><![CDATA[Bank Account #]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="410" y="105" width="145" height="15" uuid="ed-r6-v"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="10"/></textElement>
+                <textFieldExpression><![CDATA[$P{Bank Account #}]]></textFieldExpression>
+            </textField>
+
+            <staticText>
+                <reportElement x="280" y="120" width="130" height="15" uuid="ed-r7"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="10" isBold="true"/></textElement>
+                <text><![CDATA[UAN]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="410" y="120" width="145" height="15" uuid="ed-r7-v"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="10"/></textElement>
+                <textFieldExpression><![CDATA[$P{UAN}]]></textFieldExpression>
+            </textField>
+
+            <line>
+                <reportElement x="0" y="139" width="555" height="1" uuid="ed-line-bot"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+            </line>
+        </band>
+    </pageHeader>
+
+    <detail>
+        <band height="180">
+            <!-- Headers -->
+            <rectangle>
+                <reportElement x="0" y="0" width="270" height="20" backcolor="#F0F0F0" uuid="ad-head-bg1"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <graphicElement><pen lineWidth="0.5" lineColor="#CCCCCC"/></graphicElement>
+            </rectangle>
+            <staticText>
+                <reportElement x="5" y="0" width="260" height="20" uuid="ad-head-t1"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="11" isBold="true"/></textElement>
+                <text><![CDATA[ADDITIONS (+)]]></text>
+            </staticText>
+
+            <rectangle>
+                <reportElement x="285" y="0" width="270" height="20" backcolor="#F0F0F0" uuid="ad-head-bg2"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <graphicElement><pen lineWidth="0.5" lineColor="#CCCCCC"/></graphicElement>
+            </rectangle>
+            <staticText>
+                <reportElement x="290" y="0" width="260" height="20" uuid="ad-head-t2"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="11" isBold="true"/></textElement>
+                <text><![CDATA[DEDUCTIONS (-)]]></text>
+            </staticText>
+
+            <!-- Grid container boxes -->
+            <rectangle>
+                <reportElement x="0" y="20" width="270" height="140" uuid="ad-box1"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <graphicElement><pen lineWidth="0.5" lineColor="#CCCCCC"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="285" y="20" width="270" height="140" uuid="ad-box2"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <graphicElement><pen lineWidth="0.5" lineColor="#CCCCCC"/></graphicElement>
+            </rectangle>
+
+            <!-- LEFT BOX CONTENT (Additions) -->
+            <!-- 1. Payable Basic + DA -->
+            <staticText>
+                <reportElement x="5" y="25" width="165" height="15" uuid="ad-l1"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="10"/></textElement>
+                <text><![CDATA[Payable Basic + DA]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="170" y="25" width="95" height="15" uuid="ad-l1v"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement textAlignment="Right" verticalAlignment="Middle"><font size="10"/></textElement>
+                <textFieldExpression><![CDATA[$P{Payable Basic + DA}]]></textFieldExpression>
+            </textField>
+            
+            <!-- 2. Payable HRA -->
+            <staticText>
+                <reportElement x="5" y="40" width="165" height="15" uuid="ad-l2"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="10"/></textElement>
+                <text><![CDATA[Payable HRA]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="170" y="40" width="95" height="15" uuid="ad-l2v"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+
+                <textElement textAlignment="Right" verticalAlignment="Middle"><font size="10"/></textElement>
+                <textFieldExpression><![CDATA[$P{Payable HRA}]]></textFieldExpression>
+            </textField>
+
+            <!-- 3. Payable Medical Allowance -->
+            <staticText>
+                <reportElement x="5" y="55" width="165" height="15" uuid="ad-l3"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="10"/></textElement>
+                <text><![CDATA[Payable Medical Allowance]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="170" y="55" width="95" height="15" uuid="ad-l3v"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement textAlignment="Right" verticalAlignment="Middle"><font size="10"/></textElement>
+                <textFieldExpression><![CDATA[$P{Payable Medical Allowance}]]></textFieldExpression>
+            </textField>
+
+            <!-- 4. Payable Conveyance -->
+            <staticText>
+                <reportElement x="5" y="70" width="165" height="15" uuid="ad-l4"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="10"/></textElement>
+                <text><![CDATA[Payable Conveyance]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="170" y="70" width="95" height="15" uuid="ad-l4v"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textFieldExpression><![CDATA[$P{Payable Conveyance}]]></textFieldExpression>
+            </textField>
+
+            <!-- 5. Individual Performance Incentive -->
+            <staticText>
+                <reportElement x="5" y="85" width="165" height="15" uuid="ad-l5"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="9"/></textElement>
+                <text><![CDATA[Individual Performance Incentive]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="170" y="85" width="95" height="15" uuid="ad-l5v"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement textAlignment="Right" verticalAlignment="Middle"><font size="10"/></textElement>
+                <textFieldExpression><![CDATA[$P{Individual Performance Incentive}]]></textFieldExpression>
+            </textField>
+
+            <!-- 6. Company Performance Incentive -->
+            <staticText>
+                <reportElement x="5" y="100" width="165" height="15" uuid="ad-l6"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="9"/></textElement>
+                <text><![CDATA[Company Performance Incentive]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="170" y="100" width="95" height="15" uuid="ad-l6v"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement textAlignment="Right" verticalAlignment="Middle"><font size="10"/></textElement>
+                <textFieldExpression><![CDATA[$P{Company Performance Incentive}]]></textFieldExpression>
+            </textField>
+
+            <!-- 7. Other Arrears / Incentives -->
+            <staticText>
+                <reportElement x="5" y="115" width="165" height="15" uuid="ad-l7"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="10"/></textElement>
+                <text><![CDATA[Other Arrears / Incentives]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="170" y="115" width="95" height="15" uuid="ad-l7v"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement textAlignment="Right" verticalAlignment="Middle"><font size="10"/></textElement>
+                <textFieldExpression><![CDATA[$P{Other Arrears / Incentives}]]></textFieldExpression>
+            </textField>
+
+            <!-- 8. Bonus Accrued -->
+            <staticText>
+                <reportElement x="5" y="130" width="165" height="15" uuid="ad-l8"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="10"/></textElement>
+                <text><![CDATA[Bonus Accrued]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="170" y="130" width="95" height="15" uuid="ad-l8v"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement textAlignment="Right" verticalAlignment="Middle"><font size="10"/></textElement>
+                <textFieldExpression><![CDATA[$P{Bonus Accrued}]]></textFieldExpression>
+            </textField>
+
+            <!-- RIGHT BOX CONTENT (Deductions) -->
+            <!-- 1. Provident Fund (PF) -->
+            <staticText>
+                <reportElement x="290" y="25" width="165" height="15" uuid="ad-r1"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="10"/></textElement>
+                <text><![CDATA[Provident Fund (PF)]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="455" y="25" width="95" height="15" uuid="ad-r1v"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement textAlignment="Right" verticalAlignment="Middle"><font size="10"/></textElement>
+                <textFieldExpression><![CDATA[$P{Provident Fund (PF)}]]></textFieldExpression>
+            </textField>
+
+            <!-- 2. Professional Tax (PT) -->
+            <staticText>
+                <reportElement x="290" y="40" width="165" height="15" uuid="ad-r2"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="10"/></textElement>
+                <text><![CDATA[Professional Tax (PT)]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="455" y="40" width="95" height="15" uuid="ad-r2v"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement textAlignment="Right" verticalAlignment="Middle"><font size="10"/></textElement>
+                <textFieldExpression><![CDATA[$P{Professional Tax (PT)}]]></textFieldExpression>
+            </textField>
+
+            <!-- 3. Employees' State Insurance (ESI) -->
+            <staticText>
+                <reportElement x="290" y="55" width="165" height="15" uuid="ad-r3"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="10"/></textElement>
+                <text><![CDATA[Employees' State Insurance (ESI)]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="455" y="55" width="95" height="15" uuid="ad-r3v"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement textAlignment="Right" verticalAlignment="Middle"><font size="10"/></textElement>
+                <textFieldExpression><![CDATA[$P{Employees' State Insurance (ESI)}]]></textFieldExpression>
+            </textField>
+
+            <!-- 4. Loan EMI -->
+            <staticText>
+                <reportElement x="290" y="70" width="165" height="15" uuid="ad-r4"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="10"/></textElement>
+                <text><![CDATA[Loan EMI]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="455" y="70" width="95" height="15" uuid="ad-r4v"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement textAlignment="Right" verticalAlignment="Middle"><font size="10"/></textElement>
+                <textFieldExpression><![CDATA[$P{Loan EMI}]]></textFieldExpression>
+            </textField>
+
+        </band>
+    </detail>
+
+    <!-- Summary / Totals Section -->
+    <summary>
+        <band height="120">
+            <line>
+                <reportElement x="0" y="5" width="555" height="1" uuid="sum-line1"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <graphicElement><pen lineWidth="1.0" lineColor="#666666"/></graphicElement>
+            </line>
+            
+            <staticText>
+                <reportElement x="0" y="10" width="555" height="20" uuid="sum-title"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="12" isBold="true"/></textElement>
+                <text><![CDATA[Summary / Totals]]></text>
+            </staticText>
+
+            <!-- Total Additions aligned under Left Column (x=0 to 270) -->
+            <staticText>
+                <reportElement x="0" y="35" width="160" height="20" uuid="sum-ta-lbl"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="11" isBold="true"/></textElement>
+                <text><![CDATA[Total Additions]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="160" y="35" width="105" height="20" uuid="sum-ta-val"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement textAlignment="Right" verticalAlignment="Middle"><font size="11" isBold="true"/></textElement>
+                <textFieldExpression><![CDATA[$P{Total Additions}]]></textFieldExpression>
+            </textField>
+
+            <!-- Total Deductions aligned under Right Column (x=285 to 555) -->
+            <staticText>
+                <reportElement x="285" y="35" width="160" height="20" uuid="sum-td-lbl"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+               
+                <textElement verticalAlignment="Middle"><font size="11" isBold="true"/></textElement>
+                <text><![CDATA[Total Deductions]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="445" y="35" width="110" height="20" uuid="sum-td-val"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement textAlignment="Right" verticalAlignment="Middle"><font size="11" isBold="true"/></textElement>
+                <textFieldExpression><![CDATA[$P{Total Deductions}]]></textFieldExpression>
+            </textField>
+
+            <!-- Payable Salary HIGHLIGHTED Box (Left side) -->
+            <rectangle>
+                <reportElement x="0" y="65" width="270" height="35" backcolor="#E8F4F8" uuid="sum-pay-box"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <graphicElement><pen lineWidth="1.0" lineColor="#999999"/></graphicElement>
+            </rectangle>
+            <staticText>
+                <reportElement x="5" y="65" width="120" height="35" uuid="sum-pay-lbl"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="12" isBold="true"/></textElement>
+                <text><![CDATA[Payable Salary]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="125" y="65" width="140" height="35" uuid="sum-pay-val"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement textAlignment="Right" verticalAlignment="Middle"><font size="14" isBold="true"/></textElement>
+                <textFieldExpression><![CDATA[$P{Payable Salary}]]></textFieldExpression>
+            </textField>
+
+            <!-- Annual Bonus and Closing Loan Balance (Right side) -->
+            <staticText>
+                <reportElement x="285" y="65" width="160" height="15" uuid="sum-bonus-lbl"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="10"/></textElement>
+                <text><![CDATA[Annual Bonus]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="445" y="65" width="110" height="15" uuid="sum-bonus-val"/ positionType="Float" isRemoveLineWhenBlank="true" positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement textAlignment="Right" verticalAlignment="Middle"><font size="10"/></textElement>
+                <textFieldExpression><![CDATA[$P{Annual Bonus}]]></textFieldExpression>
+            </textField>
+
+            <staticText>
+                <reportElement x="285" y="80" width="160" height="15" uuid="sum-loan-lbl"/ positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement verticalAlignment="Middle"><font size="10"/></textElement>
+                <text><![CDATA[Closing Loan Balance]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="445" y="80" width="110" height="15" uuid="sum-loan-val"/ positionType="Float" isRemoveLineWhenBlank="true">
+                
+                <textElement textAlignment="Right" verticalAlignment="Middle"><font size="10"/></textElement>
+                <textFieldExpression><![CDATA[$P{Closing Loan Balance}]]></textFieldExpression>
+            </textField>
+        </band>
+    </summary>
+
+    <!-- Footer Note -->
+    <pageFooter>
+        <band height="40">
+            <staticText>
+                <reportElement x="0" y="10" width="555" height="20" forecolor="#999999" uuid="b5ff4f73-6784-4863-9111-20a8fe3c91af"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="9" isItalic="true"/>
+                </textElement>
+                <text><![CDATA[This is a computer-automated salary slip. No physical signature is required.]]></text>
+            </staticText>
+        </band>
+    </pageFooter>
+
+</jasperReport>

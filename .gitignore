@@ -1,0 +1,19 @@
+target/
+!.mvn/wrapper/maven-wrapper.jar
+log/
+**/*.log
+.venv/
+__pycache__/
+*.class
+
+# ignore python script outputs
+*.txt
+!pom.xml
+
+# macOS
+.DS_Store
+
+# IDEs
+.idea/
+.vscode/
+*.iml
