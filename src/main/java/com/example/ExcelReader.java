@@ -46,7 +46,16 @@ public class ExcelReader {
                 throw new RuntimeException("No valid sheet found in the Excel file!");
             }
 
-            // 4. Extract Headers from Row 2 (index 1)
+            // 4. Extract Salary Month from Cell B1 (Row 0, Cell 1)
+            String salaryMonth = "Unknown";
+            Row firstRow = sheet.getRow(0);
+            if (firstRow != null) {
+                Cell monthCell = firstRow.getCell(1, Row.MissingCellPolicy.RETURN_BLANK_AS_NULL);
+                Object val = getCellValue(monthCell);
+                salaryMonth = DateFormatter.formatMonthYear(val);
+            }
+
+            // 5. Extract Headers from Row 2 (index 1)
             Row headerRow = sheet.getRow(1);
             if (headerRow == null) {
                 return employeeList;
@@ -64,12 +73,13 @@ public class ExcelReader {
                 }
             }
 
-            // 5. Read Data Rows (starting from index 2)
+            // 6. Read Data Rows (starting from index 2)
             for (int i = 2; i <= sheet.getLastRowNum(); i++) {
                 Row currentRow = sheet.getRow(i);
                 if (currentRow == null) continue;
 
                 Map<String, Object> employeeData = new LinkedHashMap<>();
+                employeeData.put("salary_month", salaryMonth); // Include global salary month
                 for (int j = 0; j < headers.size(); j++) {
                     String columnName = headers.get(j);
                     Cell cell = currentRow.getCell(j, Row.MissingCellPolicy.RETURN_BLANK_AS_NULL);
@@ -93,16 +103,18 @@ public class ExcelReader {
                 return cell.getStringCellValue().trim();
             case NUMERIC:
                 if (DateUtil.isCellDateFormatted(cell)) {
-                    return cell.getLocalDateTimeCellValue().toLocalDate();
+                    return DateFormatter.formatMonthYear(cell.getLocalDateTimeCellValue().toLocalDate());
                 }
                 double value = cell.getNumericCellValue();
                 return (value == Math.floor(value)) ? (long) value : value;
             case BOOLEAN:
                 return cell.getBooleanCellValue();
             case FORMULA:
-                try { return cell.getNumericCellValue(); } 
-                catch (Exception e) { return cell.getStringCellValue(); }
-            case BLANK:
+                try { 
+                    return cell.getNumericCellValue(); 
+                } catch (Exception e) { 
+                    return cell.getStringCellValue(); 
+                }
             default:
                 return null;
         }

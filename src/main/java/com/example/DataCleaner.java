@@ -1,67 +1,76 @@
 package com.example;
 
+import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * Advanced Data Cleaner that standardizes keys and formats salary values using Maps.
+ * Advanced Data Cleaner that applies section-based filtering rules:
+ * 1. Employee Details: Always included.
+ * 2. Additions/Deductions/Totals: Included only if > 0.
  */
 public class DataCleaner {
 
-    // Centralized mapping from Excel Headers to JRXML Parameters
-    private static final Map<String, String> FIELD_MAPPING = new LinkedHashMap<>();
-
-    static {
-        // Employee Info
-        FIELD_MAPPING.put("Employee ID", "Employee ID");
-        FIELD_MAPPING.put("Employee Name", "Employee Name");
-        FIELD_MAPPING.put("Gender", "Gender");
-        FIELD_MAPPING.put("UAN", "UAN");
-        FIELD_MAPPING.put("Bank Name", "Bank Name");
-        FIELD_MAPPING.put("Bank Account #", "Bank Account #");
-        FIELD_MAPPING.put("Bank IFSC Code", "Bank IFSC Code");
-        FIELD_MAPPING.put("City", "City");
-
-        // Attendance & Leaves
-        FIELD_MAPPING.put("Days in month", "Days in month");
-        FIELD_MAPPING.put("Days of Pay", "Days of Pay");
-        FIELD_MAPPING.put("Opening Leave Balance", "Opening Leave Balance");
-        FIELD_MAPPING.put("Eligible Leaves", "Eligible Leaves");
-        FIELD_MAPPING.put("Leaves Availed", "Leaves Availed");
-        FIELD_MAPPING.put("Loss of Pay Days", "Loss of Pay Days");
-        FIELD_MAPPING.put("Closing Leave Balance", "Closing Leave Balance");
-        FIELD_MAPPING.put("Payable Days", "Payable Days");
-
-        // Additions
-        FIELD_MAPPING.put("Payable Basic + DA", "Payable Basic + DA");
-        FIELD_MAPPING.put("Payable HRA", "Payable HRA");
-        FIELD_MAPPING.put("Payable Medical Allowance", "Payable Medical Allowance");
-        FIELD_MAPPING.put("Payable Conveyance", "Payable Conveyance");
-        FIELD_MAPPING.put("Individual Performance Incentive", "Individual Performance Incentive");
-        FIELD_MAPPING.put("Company Performance Incentive", "Company Performance Incentive");
-        FIELD_MAPPING.put("Other Arrears / Incentives", "Other Arrears / Incentives");
-        FIELD_MAPPING.put("Bonus Accrued", "Bonus Accrued");
-        FIELD_MAPPING.put("Total Additions", "Total Additions");
-
-        // Deductions
-        FIELD_MAPPING.put("Provident Fund (PF)", "Provident Fund (PF)");
-        FIELD_MAPPING.put("Professional Tax (PT)", "Professional Tax (PT)");
-        FIELD_MAPPING.put("Employees' State Insurance (ESI)", "Employees' State Insurance (ESI)");
-        FIELD_MAPPING.put("Loan EMI", "Loan EMI");
-        FIELD_MAPPING.put("Total Deductions", "Total Deductions");
-
-        // Final Totals
-        FIELD_MAPPING.put("Payable Salary", "Payable Salary");
-        FIELD_MAPPING.put("Annual Bonus", "Annual Bonus");
-        FIELD_MAPPING.put("Closing Loan Balance", "Closing Loan Balance");
+    private enum Section {
+        EMPLOYEE_INFO,
+        ADDITIONS,
+        DEDUCTIONS,
+        TOTALS,
+        QUOTAS
     }
 
-    /**
-     * Cleans raw Map data from Excel:
-     * 1. Maps keys to JRXML parameter names.
-     * 2. Formats numeric/salary values with .00 suffix via NumberFormatter.
-     * 3. Excludes null, empty, or zero values.
-     */
+    private static final Map<String, String> FIELD_MAPPING = new LinkedHashMap<>();
+    private static final Map<String, Section> FIELD_SECTIONS = new LinkedHashMap<>();
+
+    static {
+        // --- EMPLOYEE INFO (Always Include) ---
+        addMapping("Employee ID", "Employee ID", Section.EMPLOYEE_INFO);
+        addMapping("Employee Name", "Employee Name", Section.EMPLOYEE_INFO);
+        addMapping("Gender", "Gender", Section.EMPLOYEE_INFO);
+        addMapping("UAN", "UAN", Section.EMPLOYEE_INFO);
+        addMapping("Bank Name", "Bank Name", Section.EMPLOYEE_INFO);
+        addMapping("Bank Account #", "Bank Account #", Section.EMPLOYEE_INFO);
+        addMapping("Bank IFSC Code", "Bank IFSC Code", Section.EMPLOYEE_INFO);
+        addMapping("City", "City", Section.EMPLOYEE_INFO);
+        addMapping("Days in month", "Days in month", Section.EMPLOYEE_INFO);
+        addMapping("Days of Pay", "Days of Pay", Section.EMPLOYEE_INFO);
+        addMapping("Payable Days", "Payable Days", Section.EMPLOYEE_INFO);
+        addMapping("salary_month", "salary_month", Section.EMPLOYEE_INFO);
+
+        // --- ADDITIONS (Include if > 0) ---
+        addMapping("Payable Basic + DA", "Payable Basic + DA", Section.ADDITIONS);
+        addMapping("Payable HRA", "Payable HRA", Section.ADDITIONS);
+        addMapping("Payable Medical Allowance", "Payable Medical Allowance", Section.ADDITIONS);
+        addMapping("Payable Conveyance", "Payable Conveyance", Section.ADDITIONS);
+        addMapping("Individual Performance Incentive", "Individual Performance Incentive", Section.ADDITIONS);
+        addMapping("Company Performance Incentive", "Company Performance Incentive", Section.ADDITIONS);
+        addMapping("Other Arrears / Incentives", "Other Arrears / Incentives", Section.ADDITIONS);
+        addMapping("Bonus Accrued", "Bonus Accrued", Section.ADDITIONS);
+        addMapping("Total Additions", "Total Additions", Section.ADDITIONS);
+        addMapping("Annual Bonus", "Annual Bonus", Section.ADDITIONS);
+
+        // --- DEDUCTIONS (Include if > 0) ---
+        addMapping("Provident Fund (PF)", "Provident Fund (PF)", Section.DEDUCTIONS);
+        addMapping("Professional Tax (PT)", "Professional Tax (PT)", Section.DEDUCTIONS);
+        addMapping("Employees' State Insurance (ESI)", "Employees' State Insurance (ESI)", Section.DEDUCTIONS);
+        addMapping("Loan EMI", "Loan EMI", Section.DEDUCTIONS);
+        addMapping("Total Deductions", "Total Deductions", Section.DEDUCTIONS);
+
+        // --- TOTALS & BALANCES (Include if > 0) ---
+        addMapping("Payable Salary", "Payable Salary", Section.TOTALS);
+        addMapping("Closing Loan Balance", "Closing Loan Balance", Section.TOTALS);
+        addMapping("Opening Leave Balance", "Opening Leave Balance", Section.QUOTAS);
+        addMapping("Eligible Leaves", "Eligible Leaves", Section.QUOTAS);
+        addMapping("Leaves Availed", "Leaves Availed", Section.QUOTAS);
+        addMapping("Loss of Pay Days", "Loss of Pay Days", Section.QUOTAS);
+        addMapping("Closing Leave Balance", "Closing Leave Balance", Section.QUOTAS);
+    }
+
+    private static void addMapping(String excel, String jrxml, Section section) {
+        FIELD_MAPPING.put(excel, jrxml);
+        FIELD_SECTIONS.put(jrxml, section);
+    }
+
     public Map<String, Object> clean(Map<String, Object> rawData) {
         if (rawData == null) return null;
 
@@ -70,19 +79,30 @@ public class DataCleaner {
         for (Map.Entry<String, String> entry : FIELD_MAPPING.entrySet()) {
             String excelKey = entry.getKey();
             String jrxmlKey = entry.getValue();
+            Section section = FIELD_SECTIONS.get(jrxmlKey);
 
             Object rawValue = findRawValue(rawData, excelKey);
             if (rawValue == null) continue;
 
-            if (isSalaryField(jrxmlKey) || isNumeric(rawValue)) {
-                String formatted = NumberFormatter.format(rawValue);
-                if (formatted != null) {
-                    cleanedData.put(jrxmlKey, formatted);
-                }
-            } else {
-                String strValue = String.valueOf(rawValue).trim();
-                if (!strValue.isEmpty() && !"null".equalsIgnoreCase(strValue)) {
-                    cleanedData.put(jrxmlKey, strValue);
+            // 1. Evaluate numeric value for filtering
+            BigDecimal numericValue = NumberFormatter.toBigDecimal(rawValue);
+            boolean isGreaterThanZero = (numericValue != null && numericValue.compareTo(BigDecimal.ZERO) > 0);
+
+            // 2. Apply Section-Based Filtering Rule
+            boolean shouldInclude = (section == Section.EMPLOYEE_INFO) || isGreaterThanZero;
+
+            if (shouldInclude) {
+                // 3. Apply Formatting
+                if (jrxmlKey.toLowerCase().contains("salary_month")) {
+                    cleanedData.put(jrxmlKey, DateFormatter.formatMonthYear(rawValue));
+                } else if (jrxmlKey.toLowerCase().contains("id")) {
+                    cleanedData.put(jrxmlKey, NumberFormatter.formatID(rawValue));
+                } else if (isCurrencyField(jrxmlKey)) {
+                    cleanedData.put(jrxmlKey, NumberFormatter.formatCurrency(rawValue));
+                } else if (isIntegerField(jrxmlKey) || numericValue != null) {
+                    cleanedData.put(jrxmlKey, NumberFormatter.formatInteger(rawValue));
+                } else {
+                    cleanedData.put(jrxmlKey, String.valueOf(rawValue).trim());
                 }
             }
         }
@@ -98,19 +118,23 @@ public class DataCleaner {
         return null;
     }
 
-    private boolean isSalaryField(String jrxmlKey) {
-        return jrxmlKey.contains("Payable") || jrxmlKey.contains("Total") || 
-               jrxmlKey.contains("Incentive") || jrxmlKey.contains("Bonus") ||
-               jrxmlKey.contains("Fund") || jrxmlKey.contains("Tax") || 
-               jrxmlKey.contains("Insurance") || jrxmlKey.contains("EMI") ||
-               jrxmlKey.contains("Balance") && jrxmlKey.contains("Loan");
+    private boolean isCurrencyField(String jrxmlKey) {
+        String key = jrxmlKey.toLowerCase();
+        return key.contains("payable") || key.contains("total") || 
+               key.contains("tax") || key.contains("basic") || 
+               key.contains("allowance") || key.contains("incentive") || 
+               key.contains("bonus") || key.contains("fund") || 
+               key.contains("insurance") || key.contains("emi") ||
+               (key.contains("balance") && key.contains("loan")) ||
+               key.contains("hra") || key.contains("medical") || 
+               key.contains("conveyance") || key.contains("arrears") ||
+               key.contains("da") || key.contains("ctc");
     }
 
-    private boolean isNumeric(Object value) {
-        if (value instanceof Number) return true;
-        if (value instanceof String) {
-            return ((String) value).trim().matches("-?\\d+(\\.\\d+)?");
-        }
-        return false;
+    private boolean isIntegerField(String jrxmlKey) {
+        String key = jrxmlKey.toLowerCase();
+        return key.contains("id") || key.contains("account") || 
+               key.contains("uan") || key.contains("days") || 
+               key.contains("leave") || (key.contains("balance") && !key.contains("loan"));
     }
 }

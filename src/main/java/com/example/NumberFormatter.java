@@ -9,50 +9,69 @@ import java.math.RoundingMode;
 public class NumberFormatter {
 
     /**
-     * Formats a salary value: rounds to nearest integer (HALF_UP) and adds .00 suffix.
-     * Returns null if the value is null, empty, or zero (to be excluded).
-     *
-     * @param value The value to format (can be Number, String, or null)
-     * @return Formatted string with .00 suffix, or null if should be excluded.
+     * Legacy support for the main format method.
+     * Delegates to formatCurrency.
      */
     public static String format(Object value) {
-        if (value == null) {
-            return null;
-        }
+        return formatCurrency(value);
+    }
 
-        BigDecimal numericValue;
+    /**
+     * Formats a value as currency: rounds to nearest integer and adds .00 suffix.
+     * Returns null only if the input is null or unparseable.
+     */
+    public static String formatCurrency(Object value) {
+        BigDecimal numericValue = toBigDecimal(value);
+        if (numericValue == null) return null;
+
+        // Round to nearest integer and add .00
+        BigDecimal rounded = numericValue.setScale(0, RoundingMode.HALF_UP);
+        return rounded.setScale(2, RoundingMode.UNNECESSARY).toPlainString();
+    }
+
+    /**
+     * Formats a value as a whole integer: rounds to nearest whole number.
+     * Returns null only if the input is null or unparseable.
+     */
+    public static String formatInteger(Object value) {
+        BigDecimal numericValue = toBigDecimal(value);
+        if (numericValue == null) return null;
+
+        // Round to nearest integer with no decimals
+        return numericValue.setScale(0, RoundingMode.HALF_UP).toPlainString();
+    }
+
+    /**
+     * Standardized method for formatting Employee IDs.
+     * Ensures NO decimals or scientific notation are ever present.
+     */
+    public static String formatID(Object value) {
+        BigDecimal numericValue = toBigDecimal(value);
+        if (numericValue == null) return "N/A";
+
+        // Convert to BigInteger to strip all fractional parts
+        return numericValue.setScale(0, RoundingMode.DOWN).toBigInteger().toString();
+    }
+
+    /**
+     * Safe conversion of object to BigDecimal.
+     */
+    public static BigDecimal toBigDecimal(Object value) {
+        if (value == null) return null;
 
         try {
             if (value instanceof BigDecimal) {
-                numericValue = (BigDecimal) value;
+                return (BigDecimal) value;
             } else if (value instanceof Number) {
-                numericValue = new BigDecimal(value.toString());
+                return new BigDecimal(value.toString());
             } else if (value instanceof String) {
                 String str = ((String) value).trim();
-                if (str.isEmpty()) {
-                    return null;
-                }
-                numericValue = new BigDecimal(str);
-            } else {
-                return null; // Invalid type
+                if (str.isEmpty()) return null;
+                return new BigDecimal(str);
             }
         } catch (NumberFormatException e) {
-            return null; // Invalid numeric string
+            // Silently handle invalid numeric strings
         }
-
-        // Check if value is zero
-        if (numericValue.compareTo(BigDecimal.ZERO) == 0) {
-            return null;
-        }
-
-        // 1. Round to nearest integer using HALF_UP
-        BigDecimal rounded = numericValue.setScale(0, RoundingMode.HALF_UP);
-
-        // 2. Display with .00 suffix
-        // We set scale to 2 to get the .00 suffix. 
-        // Since we already rounded to 0 decimals, this will always be .00
-        BigDecimal result = rounded.setScale(2, RoundingMode.UNNECESSARY);
-
-        return result.toPlainString();
+        return null;
     }
 }

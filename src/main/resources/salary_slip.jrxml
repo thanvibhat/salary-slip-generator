@@ -5,7 +5,8 @@
               name="SalarySlip" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 
     <!-- Report Parameters -->
-    <parameter name="month" class="java.lang.String"/>
+    <parameter name="logo_path" class="java.lang.String"/>
+    <parameter name="salary_month" class="java.lang.String"/>
     <parameter name="Employee ID" class="java.lang.String"/>
     <parameter name="Days in month" class="java.lang.String"/>
     <parameter name="Opening Leave Balance" class="java.lang.String"/>
@@ -43,33 +44,25 @@
 
     <!-- Report Title -->
     <title>
-        <band height="120">
+        <band height="100">
             <!-- Company Logo -->
             <image hAlign="Center" vAlign="Middle">
                 <reportElement x="0" y="0" width="555" height="50"/>
-                <imageExpression><![CDATA[new java.io.File("src/main/resources/download.png").getAbsolutePath()]]></imageExpression>
+                <imageExpression><![CDATA[$P{logo_path}]]></imageExpression>
             </image>
             
-            <!-- Main Title -->
-            <staticText>
+            <!-- Consolidate Title: Salary Slip for <month> -->
+            <textField>
                 <reportElement x="0" y="60" width="555" height="30"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font size="18" isBold="true"/>
+                    <font size="16" isBold="true"/>
                 </textElement>
-                <text><![CDATA[Salary Slip]]></text>
-            </staticText>
-            
-            <!-- Subtitle with dynamic Month/Year -->
-            <textField>
-                <reportElement x="0" y="90" width="555" height="20"/>
-                <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font size="12" isBold="false"/>
-                </textElement>
-                <textFieldExpression><![CDATA["Salary Slip for " + ($P{month} != null ? $P{month} : "")]]></textFieldExpression>
+                <textFieldExpression><![CDATA["Salary Slip for " + ($P{salary_month} != null ? $P{salary_month} : "Unknown Month")]]></textFieldExpression>
             </textField>
             
             <line>
-                <reportElement x="0" y="115" width="555" height="1"/>
+                <reportElement x="0" y="95" width="555" height="1"/>
+                <graphicElement><pen lineWidth="1.0" lineColor="#666666"/></graphicElement>
             </line>
         </band>
     </title>
@@ -88,212 +81,156 @@
 
             <!-- LEFT COLUMN -->
             <staticText>
-                <reportElement x="0" y="30" width="130" height="15">
-                    <printWhenExpression><![CDATA[$P{Employee ID} != null && !$P{Employee ID}.trim().isEmpty()]]></printWhenExpression>
-                </reportElement>
+                <reportElement x="0" y="30" width="130" height="15"/>
                 <textElement verticalAlignment="Middle"><font size="10" isBold="true"/></textElement>
                 <text><![CDATA[Employee ID]]></text>
             </staticText>
             <textField>
-                <reportElement x="130" y="30" width="140" height="15">
-                    <printWhenExpression><![CDATA[$P{Employee ID} != null && !$P{Employee ID}.trim().isEmpty()]]></printWhenExpression>
-                </reportElement>
+                <reportElement x="130" y="30" width="140" height="15"/>
                 <textElement verticalAlignment="Middle"><font size="10"/></textElement>
                 <textFieldExpression><![CDATA[$P{Employee ID}]]></textFieldExpression>
             </textField>
 
             <staticText>
-                <reportElement x="0" y="45" width="130" height="15">
-                    <printWhenExpression><![CDATA[$P{Days in month} != null && !$P{Days in month}.trim().isEmpty()]]></printWhenExpression>
-                </reportElement>
+                <reportElement x="0" y="45" width="130" height="15"/>
                 <textElement verticalAlignment="Middle"><font size="10" isBold="true"/></textElement>
                 <text><![CDATA[Days in month]]></text>
             </staticText>
             <textField>
-                <reportElement x="130" y="45" width="140" height="15">
-                    <printWhenExpression><![CDATA[$P{Days in month} != null && !$P{Days in month}.trim().isEmpty()]]></printWhenExpression>
-                </reportElement>
+                <reportElement x="130" y="45" width="140" height="15"/>
                 <textElement verticalAlignment="Middle"><font size="10"/></textElement>
                 <textFieldExpression><![CDATA[$P{Days in month}]]></textFieldExpression>
             </textField>
 
             <staticText>
-                <reportElement x="0" y="60" width="130" height="15">
-                    <printWhenExpression><![CDATA[$P{Opening Leave Balance} != null && !$P{Opening Leave Balance}.trim().isEmpty()]]></printWhenExpression>
-                </reportElement>
+                <reportElement x="0" y="60" width="130" height="15"/>
                 <textElement verticalAlignment="Middle"><font size="10" isBold="true"/></textElement>
                 <text><![CDATA[Opening Leave Balance]]></text>
             </staticText>
             <textField>
-                <reportElement x="130" y="60" width="140" height="15">
-                    <printWhenExpression><![CDATA[$P{Opening Leave Balance} != null && !$P{Opening Leave Balance}.trim().isEmpty()]]></printWhenExpression>
-                </reportElement>
+                <reportElement x="130" y="60" width="140" height="15"/>
                 <textElement verticalAlignment="Middle"><font size="10"/></textElement>
                 <textFieldExpression><![CDATA[$P{Opening Leave Balance}]]></textFieldExpression>
             </textField>
 
             <staticText>
-                <reportElement x="0" y="75" width="130" height="15">
-                    <printWhenExpression><![CDATA[$P{Leaves Availed} != null && !$P{Leaves Availed}.trim().isEmpty()]]></printWhenExpression>
-                </reportElement>
+                <reportElement x="0" y="75" width="130" height="15"/>
                 <textElement verticalAlignment="Middle"><font size="10" isBold="true"/></textElement>
                 <text><![CDATA[Leaves Availed]]></text>
             </staticText>
             <textField>
-                <reportElement x="130" y="75" width="140" height="15">
-                    <printWhenExpression><![CDATA[$P{Leaves Availed} != null && !$P{Leaves Availed}.trim().isEmpty()]]></printWhenExpression>
-                </reportElement>
+                <reportElement x="130" y="75" width="140" height="15"/>
                 <textElement verticalAlignment="Middle"><font size="10"/></textElement>
                 <textFieldExpression><![CDATA[$P{Leaves Availed}]]></textFieldExpression>
             </textField>
 
             <staticText>
-                <reportElement x="0" y="90" width="130" height="15">
-                    <printWhenExpression><![CDATA[$P{Closing Leave Balance} != null && !$P{Closing Leave Balance}.trim().isEmpty()]]></printWhenExpression>
-                </reportElement>
+                <reportElement x="0" y="90" width="130" height="15"/>
                 <textElement verticalAlignment="Middle"><font size="10" isBold="true"/></textElement>
                 <text><![CDATA[Closing Leave Balance]]></text>
             </staticText>
             <textField>
-                <reportElement x="130" y="90" width="140" height="15">
-                    <printWhenExpression><![CDATA[$P{Closing Leave Balance} != null && !$P{Closing Leave Balance}.trim().isEmpty()]]></printWhenExpression>
-                </reportElement>
+                <reportElement x="130" y="90" width="140" height="15"/>
                 <textElement verticalAlignment="Middle"><font size="10"/></textElement>
                 <textFieldExpression><![CDATA[$P{Closing Leave Balance}]]></textFieldExpression>
             </textField>
 
             <staticText>
-                <reportElement x="0" y="105" width="130" height="15">
-                    <printWhenExpression><![CDATA[$P{Bank Name} != null && !$P{Bank Name}.trim().isEmpty()]]></printWhenExpression>
-                </reportElement>
+                <reportElement x="0" y="105" width="130" height="15"/>
                 <textElement verticalAlignment="Middle"><font size="10" isBold="true"/></textElement>
                 <text><![CDATA[Bank Name]]></text>
             </staticText>
             <textField>
-                <reportElement x="130" y="105" width="140" height="15">
-                    <printWhenExpression><![CDATA[$P{Bank Name} != null && !$P{Bank Name}.trim().isEmpty()]]></printWhenExpression>
-                </reportElement>
+                <reportElement x="130" y="105" width="140" height="15"/>
                 <textElement verticalAlignment="Middle"><font size="10"/></textElement>
                 <textFieldExpression><![CDATA[$P{Bank Name}]]></textFieldExpression>
             </textField>
 
             <staticText>
-                <reportElement x="0" y="120" width="130" height="15">
-                    <printWhenExpression><![CDATA[$P{Bank IFSC Code} != null && !$P{Bank IFSC Code}.trim().isEmpty()]]></printWhenExpression>
-                </reportElement>
+                <reportElement x="0" y="120" width="130" height="15"/>
                 <textElement verticalAlignment="Middle"><font size="10" isBold="true"/></textElement>
                 <text><![CDATA[Bank IFSC Code]]></text>
             </staticText>
             <textField>
-                <reportElement x="130" y="120" width="140" height="15">
-                    <printWhenExpression><![CDATA[$P{Bank IFSC Code} != null && !$P{Bank IFSC Code}.trim().isEmpty()]]></printWhenExpression>
-                </reportElement>
+                <reportElement x="130" y="120" width="140" height="15"/>
                 <textElement verticalAlignment="Middle"><font size="10"/></textElement>
                 <textFieldExpression><![CDATA[$P{Bank IFSC Code}]]></textFieldExpression>
             </textField>
 
             <!-- RIGHT COLUMN -->
             <staticText>
-                <reportElement x="280" y="30" width="130" height="15">
-                    <printWhenExpression><![CDATA[$P{Employee Name} != null && !$P{Employee Name}.trim().isEmpty()]]></printWhenExpression>
-                </reportElement>
+                <reportElement x="280" y="30" width="130" height="15"/>
                 <textElement verticalAlignment="Middle"><font size="10" isBold="true"/></textElement>
                 <text><![CDATA[Employee Name]]></text>
             </staticText>
             <textField>
-                <reportElement x="410" y="30" width="145" height="15">
-                    <printWhenExpression><![CDATA[$P{Employee Name} != null && !$P{Employee Name}.trim().isEmpty()]]></printWhenExpression>
-                </reportElement>
+                <reportElement x="410" y="30" width="145" height="15"/>
                 <textElement verticalAlignment="Middle"><font size="10"/></textElement>
                 <textFieldExpression><![CDATA[$P{Employee Name}]]></textFieldExpression>
             </textField>
 
             <staticText>
-                <reportElement x="280" y="45" width="130" height="15">
-                    <printWhenExpression><![CDATA[$P{Days of Pay} != null && !$P{Days of Pay}.trim().isEmpty()]]></printWhenExpression>
-                </reportElement>
+                <reportElement x="280" y="45" width="130" height="15"/>
                 <textElement verticalAlignment="Middle"><font size="10" isBold="true"/></textElement>
                 <text><![CDATA[Days of Pay]]></text>
             </staticText>
             <textField>
-                <reportElement x="410" y="45" width="145" height="15">
-                    <printWhenExpression><![CDATA[$P{Days of Pay} != null && !$P{Days of Pay}.trim().isEmpty()]]></printWhenExpression>
-                </reportElement>
+                <reportElement x="410" y="45" width="145" height="15"/>
                 <textElement verticalAlignment="Middle"><font size="10"/></textElement>
                 <textFieldExpression><![CDATA[$P{Days of Pay}]]></textFieldExpression>
             </textField>
 
             <staticText>
-                <reportElement x="280" y="60" width="130" height="15">
-                    <printWhenExpression><![CDATA[$P{Eligible Leaves} != null && !$P{Eligible Leaves}.trim().isEmpty()]]></printWhenExpression>
-                </reportElement>
+                <reportElement x="280" y="60" width="130" height="15"/>
                 <textElement verticalAlignment="Middle"><font size="10" isBold="true"/></textElement>
                 <text><![CDATA[Eligible Leaves]]></text>
             </staticText>
             <textField>
-                <reportElement x="410" y="60" width="145" height="15">
-                    <printWhenExpression><![CDATA[$P{Eligible Leaves} != null && !$P{Eligible Leaves}.trim().isEmpty()]]></printWhenExpression>
-                </reportElement>
+                <reportElement x="410" y="60" width="145" height="15"/>
                 <textElement verticalAlignment="Middle"><font size="10"/></textElement>
                 <textFieldExpression><![CDATA[$P{Eligible Leaves}]]></textFieldExpression>
             </textField>
 
             <staticText>
-                <reportElement x="280" y="75" width="130" height="15">
-                    <printWhenExpression><![CDATA[$P{Loss of Pay Days} != null && !$P{Loss of Pay Days}.trim().isEmpty()]]></printWhenExpression>
-                </reportElement>
+                <reportElement x="280" y="75" width="130" height="15"/>
                 <textElement verticalAlignment="Middle"><font size="10" isBold="true"/></textElement>
                 <text><![CDATA[Loss of Pay Days]]></text>
             </staticText>
             <textField>
-                <reportElement x="410" y="75" width="145" height="15">
-                    <printWhenExpression><![CDATA[$P{Loss of Pay Days} != null && !$P{Loss of Pay Days}.trim().isEmpty()]]></printWhenExpression>
-                </reportElement>
+                <reportElement x="410" y="75" width="145" height="15"/>
                 <textElement verticalAlignment="Middle"><font size="10"/></textElement>
                 <textFieldExpression><![CDATA[$P{Loss of Pay Days}]]></textFieldExpression>
             </textField>
 
             <staticText>
-                <reportElement x="280" y="90" width="130" height="15">
-                    <printWhenExpression><![CDATA[$P{Payable Days} != null && !$P{Payable Days}.trim().isEmpty()]]></printWhenExpression>
-                </reportElement>
+                <reportElement x="280" y="90" width="130" height="15"/>
                 <textElement verticalAlignment="Middle"><font size="10" isBold="true"/></textElement>
                 <text><![CDATA[Payable Days]]></text>
             </staticText>
             <textField>
-                <reportElement x="410" y="90" width="145" height="15">
-                    <printWhenExpression><![CDATA[$P{Payable Days} != null && !$P{Payable Days}.trim().isEmpty()]]></printWhenExpression>
-                </reportElement>
+                <reportElement x="410" y="90" width="145" height="15"/>
                 <textElement verticalAlignment="Middle"><font size="10"/></textElement>
                 <textFieldExpression><![CDATA[$P{Payable Days}]]></textFieldExpression>
             </textField>
 
             <staticText>
-                <reportElement x="280" y="105" width="130" height="15">
-                    <printWhenExpression><![CDATA[$P{Bank Account #} != null && !$P{Bank Account #}.trim().isEmpty()]]></printWhenExpression>
-                </reportElement>
+                <reportElement x="280" y="105" width="130" height="15"/>
                 <textElement verticalAlignment="Middle"><font size="10" isBold="true"/></textElement>
                 <text><![CDATA[Bank Account #]]></text>
             </staticText>
             <textField>
-                <reportElement x="410" y="105" width="145" height="15">
-                    <printWhenExpression><![CDATA[$P{Bank Account #} != null && !$P{Bank Account #}.trim().isEmpty()]]></printWhenExpression>
-                </reportElement>
+                <reportElement x="410" y="105" width="145" height="15"/>
                 <textElement verticalAlignment="Middle"><font size="10"/></textElement>
                 <textFieldExpression><![CDATA[$P{Bank Account #}]]></textFieldExpression>
             </textField>
 
             <staticText>
-                <reportElement x="280" y="120" width="130" height="15">
-                    <printWhenExpression><![CDATA[$P{UAN} != null && !$P{UAN}.trim().isEmpty()]]></printWhenExpression>
-                </reportElement>
+                <reportElement x="280" y="120" width="130" height="15"/>
                 <textElement verticalAlignment="Middle"><font size="10" isBold="true"/></textElement>
                 <text><![CDATA[UAN]]></text>
             </staticText>
             <textField>
-                <reportElement x="410" y="120" width="145" height="15">
-                    <printWhenExpression><![CDATA[$P{UAN} != null && !$P{UAN}.trim().isEmpty()]]></printWhenExpression>
-                </reportElement>
+                <reportElement x="410" y="120" width="145" height="15"/>
                 <textElement verticalAlignment="Middle"><font size="10"/></textElement>
                 <textFieldExpression><![CDATA[$P{UAN}]]></textFieldExpression>
             </textField>

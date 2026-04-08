@@ -35,7 +35,11 @@ public class Main {
             System.out.println("[DEBUG] Using Input File: " + excelPath);
             System.out.println("[INFO] Reading source data from: " + excelPath);
             List<Map<String, Object>> employeeRecords = excelReader.readExcel(excelPath);
-            System.out.println("[INFO] Successfully extracted " + employeeRecords.size() + " records.\n");
+            System.out.println("[INFO] Successfully extracted " + employeeRecords.size() + " records.");
+            if (!employeeRecords.isEmpty()) {
+                System.out.println("[DEBUG] Extracted Salary Month: " + employeeRecords.get(0).get("salary_month"));
+            }
+            System.out.println();
 
             // STEP 2 & 3: Transform and Generate
             int successCount = 0;
@@ -59,16 +63,7 @@ public class Main {
                     }
 
                     // 2. Determine Output File Name
-                    String fileName;
-                    if (cleanedData.containsKey("Employee Name")) {
-                        String cleanName = String.valueOf(cleanedData.get("Employee Name"));
-                        // Strip invalid filename characters
-                        cleanName = cleanName.replaceAll("[^a-zA-Z0-9._-]", "_");
-                        fileName = cleanName + "_" + id + ".pdf";
-                    } else {
-                        fileName = "salary_slip_" + id + ".pdf";
-                    }
-
+                    String fileName = PDFGenerator.generateFileName(cleanedData);
                     String fullOutputPath = OUTPUT_DIRECTORY + fileName;
 
                     // 3. PDF Generation Logic
