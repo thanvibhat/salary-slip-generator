@@ -1,7 +1,16 @@
+# Maven
 target/
 !.mvn/wrapper/maven-wrapper.jar
+maven_home/
+maven.zip
+build_output*
+
+# Application Outputs
+generated_slips/
 log/
 **/*.log
+
+# Python
 .venv/
 __pycache__/
 *.class

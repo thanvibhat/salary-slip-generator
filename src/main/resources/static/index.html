@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salary Dashboard | Corporate Portal</title>
+    
+    <!-- Modern typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Dashboard Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Dashboard Sidebar/Navigation (Top Bar for this layout) -->
+    <header class="dashboard-header">
+        <div class="header-content">
+            <div class="logo-area">
+                <div class="logo-icon">S</div>
+                <span class="logo-text">Salary<span>Portal</span></span>
+            </div>
+            <div class="user-profile">
+                <span id="currentDate">April 12, 2026</span>
+                <div class="profile-avatar">AD</div>
+            </div>
+        </div>
+    </header>
+
+    <main class="dashboard-container">
+        
+        <!-- Upload Section -->
+        <section class="upload-section">
+            <div class="section-card">
+                <div class="card-header">
+                    <h2>Generate New Slips</h2>
+                    <p>Upload employee data sheet to start processing</p>
+                </div>
+                
+                <form id="uploadForm" class="upload-form">
+                    <div class="file-drop-area" id="dropArea">
+                        <div class="upload-icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                        </div>
+                        <span class="file-msg">Drag & Drop Excel file (.xlsx)</span>
+                        <input type="file" id="fileInput" name="file" accept=".xls,.xlsx" required>
+                    </div>
+                    <button type="submit" class="primary-btn" id="submitBtn">Process Batch</button>
+                    <div id="statusMessage" class="status-box hidden"></div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section id="resultArea" class="results-section hidden">
+            <div class="results-header">
+                <div class="title-area">
+                    <h2>Generated Documents</h2>
+                    <span id="fileCount" class="badge">0 Files</span>
+                </div>
+                <button id="downloadAllBtn" class="secondary-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    Download All (ZIP)
+                </button>
+            </div>
+
+            <div id="fileGrid" class="file-grid">
+                <!-- PDF Cards injected here -->
+            </div>
+        </section>
+
+        <!-- Empty State (Shown initially) -->
+        <section id="emptyState" class="empty-state">
+            <div class="empty-content">
+                <div class="empty-illustration">
+                    <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                </div>
+                <h3>No documents generated yet</h3>
+                <p>Upload a payroll sheet to generate professional salary slips.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- PDF Preview Modal -->
+    <div id="previewModal" class="modal hidden">
+        <div class="modal-backdrop"></div>
+        <div class="modal-window">
+            <div class="modal-header">
+                <h3 id="modalTitle">File Preview</h3>
+                <button class="close-btn" id="closeModalBtn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <iframe id="pdfFrame" src=""></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden"></div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
