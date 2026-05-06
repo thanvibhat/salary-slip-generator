@@ -63,7 +63,7 @@ public class NumberFormatter {
      */
     public static String formatID(Object value) {
         BigDecimal numericValue = toBigDecimal(value);
-        if (numericValue == null) return "N/A";
+        if (numericValue == null) return "";
 
         // Convert to BigInteger to strip all fractional parts
         return numericValue.setScale(0, RoundingMode.DOWN).toBigInteger().toString();

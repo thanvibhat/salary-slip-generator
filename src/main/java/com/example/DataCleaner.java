@@ -104,22 +104,23 @@ public class DataCleaner {
                 
                 if (key.contains("salary_month")) {
                     cleanedData.put(jrxmlKey, DateFormatter.formatMonthYear(rawValue));
-                } else if (key.equals("employee id")) {
-                    // ID remains as integer (no .00)
+                } else if (key.equals("employee id") || key.equals("bank account #")) {
+                    // ID and Account # remain as integer and blank if null
                     cleanedData.put(jrxmlKey, NumberFormatter.formatID(rawValue));
-                } else if (key.equals("bank account #")) {
-                    // Account # remains as integer (no .00)
-                    cleanedData.put(jrxmlKey, NumberFormatter.formatInteger(rawValue));
                 } else if (isCurrencyField(jrxmlKey)) {
                     // Add Rupees symbol, commas, and .00
                     cleanedData.put(jrxmlKey, NumberFormatter.formatAmount(rawValue));
-                } else if (section == Section.QUOTAS || key.contains("days") || key.contains("uan")) {
-                    // Add .00 suffix but no currency symbol
+                } else if (key.equals("uan")) {
+                    // UAN should be blank if null
+                    cleanedData.put(jrxmlKey, rawValue != null ? NumberFormatter.formatDecimal(rawValue) : "");
+                } else if (section == Section.QUOTAS || key.contains("days")) {
+                    // Leave and payable days stay 0.00 as per previous formatting rule
                     cleanedData.put(jrxmlKey, NumberFormatter.formatDecimal(rawValue));
                 } else if (isIntegerField(jrxmlKey) || numericValue != null) {
                     cleanedData.put(jrxmlKey, NumberFormatter.formatInteger(rawValue));
                 } else {
-                    cleanedData.put(jrxmlKey, String.valueOf(rawValue).trim());
+                    // Text fields should be blank if null
+                    cleanedData.put(jrxmlKey, rawValue != null ? rawValue.toString().trim() : "");
                 }
             }
         }
