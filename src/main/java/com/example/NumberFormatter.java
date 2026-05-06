@@ -2,6 +2,8 @@ package com.example;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 /**
  * Utility class for formatting numeric salary values.
@@ -12,17 +14,31 @@ public class NumberFormatter {
      * Legacy support for the main format method.
      * Delegates to formatCurrency.
      */
-    public static String format(Object value) {
-        return formatCurrency(value);
+    /**
+     * Formats a value as an amount: adds Rupees symbol (₹), locale-aware commas, and .00 suffix.
+     */
+    public static String formatAmount(Object value) {
+        BigDecimal numericValue = toBigDecimal(value);
+        if (numericValue == null) numericValue = BigDecimal.ZERO;
+
+        // Round to nearest integer and ensure .00 as per user preference
+        BigDecimal rounded = numericValue.setScale(0, RoundingMode.HALF_UP);
+        
+        // Use NumberInstance with Indian locale for grouping/commas
+        NumberFormat formatter = NumberFormat.getNumberInstance(new Locale("en", "IN"));
+        formatter.setMinimumFractionDigits(2);
+        formatter.setMaximumFractionDigits(2);
+        
+        // Using "Rs. " instead of "₹" because many PDF fonts do not support the special character
+        return "Rs. " + formatter.format(rounded);
     }
 
     /**
-     * Formats a value as currency: rounds to nearest integer and adds .00 suffix.
-     * Returns null only if the input is null or unparseable.
+     * Formats a value as a decimal: adds .00 suffix but NO currency symbol.
      */
-    public static String formatCurrency(Object value) {
+    public static String formatDecimal(Object value) {
         BigDecimal numericValue = toBigDecimal(value);
-        if (numericValue == null) return null;
+        if (numericValue == null) return "0.00";
 
         // Round to nearest integer and add .00
         BigDecimal rounded = numericValue.setScale(0, RoundingMode.HALF_UP);
@@ -35,7 +51,7 @@ public class NumberFormatter {
      */
     public static String formatInteger(Object value) {
         BigDecimal numericValue = toBigDecimal(value);
-        if (numericValue == null) return null;
+        if (numericValue == null) return "0";
 
         // Round to nearest integer with no decimals
         return numericValue.setScale(0, RoundingMode.HALF_UP).toPlainString();

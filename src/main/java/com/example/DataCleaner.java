@@ -53,6 +53,7 @@ public class DataCleaner {
         addMapping("Provident Fund (PF)", "Provident Fund (PF)", Section.DEDUCTIONS);
         addMapping("Professional Tax (PT)", "Professional Tax (PT)", Section.DEDUCTIONS);
         addMapping("Employees' State Insurance (ESI)", "Employees' State Insurance (ESI)", Section.DEDUCTIONS);
+        addMapping("Tax Deduction on Source (TDS)", "Tax Deduction on Source (TDS)", Section.DEDUCTIONS);
         addMapping("Loan EMI", "Loan EMI", Section.DEDUCTIONS);
         addMapping("Total Deductions", "Total Deductions", Section.DEDUCTIONS);
 
@@ -82,23 +83,39 @@ public class DataCleaner {
             Section section = FIELD_SECTIONS.get(jrxmlKey);
 
             Object rawValue = findRawValue(rawData, excelKey);
-            if (rawValue == null) continue;
+            
+            // Rule: Always include Employee Info and Leave Quotas to ensure nulls show as 0.00
+            boolean isDetailSection = (section == Section.EMPLOYEE_INFO || section == Section.QUOTAS);
+            
+            if (rawValue == null && !isDetailSection) {
+                continue;
+            }
 
             // 1. Evaluate numeric value for filtering
             BigDecimal numericValue = NumberFormatter.toBigDecimal(rawValue);
             boolean isGreaterThanZero = (numericValue != null && numericValue.compareTo(BigDecimal.ZERO) > 0);
 
             // 2. Apply Section-Based Filtering Rule
-            boolean shouldInclude = (section == Section.EMPLOYEE_INFO) || isGreaterThanZero;
+            boolean shouldInclude = isDetailSection || isGreaterThanZero;
 
             if (shouldInclude) {
                 // 3. Apply Formatting
-                if (jrxmlKey.toLowerCase().contains("salary_month")) {
+                String key = jrxmlKey.toLowerCase();
+                
+                if (key.contains("salary_month")) {
                     cleanedData.put(jrxmlKey, DateFormatter.formatMonthYear(rawValue));
-                } else if (jrxmlKey.toLowerCase().contains("id")) {
+                } else if (key.equals("employee id")) {
+                    // ID remains as integer (no .00)
                     cleanedData.put(jrxmlKey, NumberFormatter.formatID(rawValue));
+                } else if (key.equals("bank account #")) {
+                    // Account # remains as integer (no .00)
+                    cleanedData.put(jrxmlKey, NumberFormatter.formatInteger(rawValue));
                 } else if (isCurrencyField(jrxmlKey)) {
-                    cleanedData.put(jrxmlKey, NumberFormatter.formatCurrency(rawValue));
+                    // Add Rupees symbol, commas, and .00
+                    cleanedData.put(jrxmlKey, NumberFormatter.formatAmount(rawValue));
+                } else if (section == Section.QUOTAS || key.contains("days") || key.contains("uan")) {
+                    // Add .00 suffix but no currency symbol
+                    cleanedData.put(jrxmlKey, NumberFormatter.formatDecimal(rawValue));
                 } else if (isIntegerField(jrxmlKey) || numericValue != null) {
                     cleanedData.put(jrxmlKey, NumberFormatter.formatInteger(rawValue));
                 } else {
@@ -120,6 +137,7 @@ public class DataCleaner {
 
     private boolean isCurrencyField(String jrxmlKey) {
         String key = jrxmlKey.toLowerCase();
+        if (key.contains("days")) return false;
         return key.contains("payable") || key.contains("total") || 
                key.contains("tax") || key.contains("basic") || 
                key.contains("allowance") || key.contains("incentive") || 
@@ -128,7 +146,8 @@ public class DataCleaner {
                (key.contains("balance") && key.contains("loan")) ||
                key.contains("hra") || key.contains("medical") || 
                key.contains("conveyance") || key.contains("arrears") ||
-               key.contains("da") || key.contains("ctc");
+               key.contains("da ") || key.contains(" da") || key.equals("da") || // Match DA as word/suffix
+               key.contains("ctc");
     }
 
     private boolean isIntegerField(String jrxmlKey) {
